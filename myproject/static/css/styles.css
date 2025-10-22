@@ -11,3 +11,33 @@ body {
 main {
     flex: 1;
 }
+
+.simple-carousel {
+    position: relative;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+}
+
+.simple-carousel img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    transition: opacity 0.3s ease;
+}
+
+.simple-carousel img:last-child {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+
+.simple-carousel:hover img:first-child {
+    opacity: 0;
+}
+
+.simple-carousel:hover img:last-child {
+    opacity: 1;
+}
+

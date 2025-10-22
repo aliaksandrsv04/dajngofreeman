@@ -3,8 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 
 from .forms import RegisterForm
-from .models import Product, Category
-
+from .models import Product, Category, Image
 
 
 def register_view(request):
@@ -25,13 +24,14 @@ def products_view(request):
     categories = Category.objects.all()
     category_id = request.GET.get('category')
     products = Product.objects.all()
+    images = Image.objects.all()
     if category_id:
         products = products.filter(category_id=category_id)
-
     return render(request, 'products.html', {
         'products': products,
         'categories': categories,
-        'selected_category': category_id
+        'selected_category': category_id,
+        'images': images,
     })
 
 

@@ -23,11 +23,18 @@
     {% for product in products %}
         <div class="col-md-4 mb-4">
             <div class="card h-100 shadow-sm">
-                {% if product.image %}
-                    <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                {% if product.image_id %}
+                     {% if product.image.image1 and product.image.image %}
+                       <div class="simple-carousel">
+                            <img src="{{ product.image.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                            <img src="{{ product.image.image1.url }}" class="card-img-top" alt="{{ product.name }}">
+                       </div>
+                     {%else%}
+                        <img src="{{ product.image.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                     {%endif%}
                 {% else %}
                     <img src="{% static 'no-image.png' %}" class="card-img-top" alt="Нет фото">
-                {% endif %}
+                {%endif%}
                 <div class="card-body">
                     <h5 class="card-title">{{ product.name }}</h5>
                     <p class="card-text">{{ product.description|truncatewords:15 }}</p>
