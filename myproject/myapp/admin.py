@@ -18,4 +18,4 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Image)
 class ImageAdmin(admin.ModelAdmin):
-    list_display = ('name', 'image', 'image1')
+    list_display = ('image', 'product')

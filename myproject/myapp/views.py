@@ -23,15 +23,14 @@ def register_view(request):
 def products_view(request):
     categories = Category.objects.all()
     category_id = request.GET.get('category')
-    products = Product.objects.all()
-    images = Image.objects.all()
+    products = Product.objects.prefetch_related('image_set').all()
+
     if category_id:
         products = products.filter(category_id=category_id)
     return render(request, 'products.html', {
         'products': products,
         'categories': categories,
         'selected_category': category_id,
-        'images': images,
     })
 
 
