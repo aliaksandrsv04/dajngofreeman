@@ -1,5 +1,7 @@
 from django.db import models
+from django.contrib.auth import get_user_model
 
+User = get_user_model()
 
 class Product(models.Model):
     objects = models.Manager()
@@ -31,7 +33,21 @@ class Image(models.Model):
     image = models.ImageField(upload_to='product_images/', blank=True, null=True)
     product = models.ForeignKey(
         'Product',
-        on_delete=models.SET_NULL,
+        on_delete=models.SET_NULL,  
         null=True,
-        blank=True
+        blank=True,
+        related_name='images'
     )
+
+class Order(models.Model):
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name='orders'
+
+    )
+    name = models.CharField(max_length=100)
+    telephone = models.CharField(max_length=12)
+    email = models.EmailField()

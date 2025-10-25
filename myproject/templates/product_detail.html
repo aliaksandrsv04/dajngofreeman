@@ -6,15 +6,27 @@
 {% block content %}
 <div class="row">
     <div class="col-md-5">
-        {% if product.image %}
-            <img src="{{ product.image.url }}" class="img-fluid rounded shadow-sm" alt="{{ product.name }}">
+        {% if products_images %}
+        {% if products_images.count > 1 %}
+        <div class="simple-carousel">
+        {%for image in products_images%}
+            <img src="{{ image.image.url }}" class="img-fluid rounded shadow-sm" alt="{{ product.name }}">
+        {%endfor%}
+        </div>
+        {% elif products_images.count == 1 %}
+            <img src="{{ products_images.first.image.url }}" class="img-fluid rounded shadow-sm" alt="{{ product.name }}">
         {% else %}
             <img src="{% static 'no-image.png' %}" class="img-fluid rounded shadow-sm" alt="Нет фото">
+        {% endif %}
         {% endif %}
     </div>
     <div class="col-md-7">
         <h2>{{ product.name }}</h2>
+        {%if product.description %}}
         <p>{{ product.description }}</p>
+        {%else%}
+        <p> У этого продукта еще нет описания </p>
+        {% endif %}
         <p><strong>Цена:</strong> {{ product.price }} руб.</p>
         {% if product.in_stock %}
             <p><span class="badge bg-success">В наличии</span></p>

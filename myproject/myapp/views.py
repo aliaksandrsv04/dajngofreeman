@@ -1,8 +1,9 @@
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib import messages
 
-from .forms import RegisterForm
+from .forms import RegisterForm, ProductForm, OrderForm
 from .models import Product, Category, Image
 
 
@@ -23,7 +24,7 @@ def register_view(request):
 def products_view(request):
     categories = Category.objects.all()
     category_id = request.GET.get('category')
-    products = Product.objects.prefetch_related('image_set').all()
+    products = Product.objects.prefetch_related('images').all()
 
     if category_id:
         products = products.filter(category_id=category_id)
@@ -37,7 +38,8 @@ def products_view(request):
 @login_required(login_url='/login/')
 def product_detail(request, pk):
     product = get_object_or_404(Product, pk=pk)
-    return render(request, 'product_detail.html', {'product': product})
+    products_images = product.images.all()
+    return render(request, 'product_detail.html', {'product': product, 'products_images': products_images})
 
 
 @login_required(login_url='/login/')
@@ -66,3 +68,24 @@ def cart_view(request):
     products = Product.objects.filter(id__in=cart)
     total = sum(p.price for p in products)
     return render(request, 'cart.html', {'products': products, 'total': total})
+
+@login_required(login_url='/login/')
+def order_view(request):
+    cart = request.session.get('cart', [])
+    products = Product.objects.filter(id__in=cart)
+    total = sum(p.price for p in products)
+    return render(request, 'order.html', {'products': products, 'total': total}, )
+
+@login_required(login_url='/login/')
+def order_new(request):
+    if request.method == 'POST':
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            order = form.save(commit=False)
+            order.user = request.user
+            order.save()
+            messages.success(request, 'Заказ обработан успешно!')
+            return redirect('products')
+    else:
+        form = OrderForm()
+    return render(request, 'order_new.html', {'form': form})

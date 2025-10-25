@@ -30,6 +30,7 @@
 </table>
 <p class="fw-bold">Итого: {{ total }} руб.</p>
 <a href="{% url 'products' %}" class="btn btn-outline-primary">Продолжить покупки</a>
+<a href="{% url 'order' %}" class="btn btn-success">Перейти к заказу</a>
 {% else %}
 <p>Корзина пуста.</p>
 {% endif %}
