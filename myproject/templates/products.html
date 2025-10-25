@@ -59,5 +59,20 @@
     {% empty %}
         <p>Нет доступных товаров.</p>
     {% endfor %}
+    <div class="pagination-container">
+    <div class="pagination">
+
+    {%if products.has_previous%}
+
+    <a href ="?page={{ products.previous_page_number }}" class="pagination-btn pagination-prev"> Предыдущая</a>
+    {%endif%}
+     <span class="pagination-info">
+            Страница {{ products.number }} из {{ products.paginator.num_pages }}
+     </span>
+    {%if products.has_next%}
+    <a href ="?page={{ products.next_page_number }}"  class="pagination-btn pagination-next"> Следующая</a>
+    {%endif%}
+            </div>
+</div>
 </div>
 {% endblock %}

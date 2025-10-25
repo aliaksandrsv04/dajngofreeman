@@ -33,7 +33,7 @@ class Image(models.Model):
     image = models.ImageField(upload_to='product_images/', blank=True, null=True)
     product = models.ForeignKey(
         'Product',
-        on_delete=models.SET_NULL,  
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         related_name='images'
@@ -51,3 +51,15 @@ class Order(models.Model):
     name = models.CharField(max_length=100)
     telephone = models.CharField(max_length=12)
     email = models.EmailField()
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(
+        Order,
+        on_delete=models.CASCADE,
+        related_name='order_items'
+    )
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        related_name='product_items'
+    )

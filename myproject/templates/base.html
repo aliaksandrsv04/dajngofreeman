@@ -18,21 +18,21 @@
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav ms-auto">
                     {% if user.is_authenticated %}
-                        <li class="nav-item me-3 text-light">
+                        <li class="nav-link">
                             Привет, {{ user.username }}!
                         </li>
-                        <li class="nav-item">
-                            <form method="post" action="{% url 'logout' %}" class="d-inline">
-                                {% csrf_token %}
-                                <button class="btn btn-outline-light btn-sm" type="submit">Выйти</button>
-                            </form>
-                        </li>
+                   <li class="nav-item">
+                        <form method="post" action="{% url 'logout' %}" class="d-inline">
+                             {% csrf_token %}
+                                <button class="btn-logout" type="submit">Выйти</button>
+                        </form>
+                   </li>
                     {% else %}
                         <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Войти</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Регистрация</a></li>
                     {% endif %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'cart_view' %}">🛒 Корзина</a>
+                        <a class="nav-link text-decoration-none" href="{% url 'cart_view' %}">🛒 Корзина</a>
                     </li>
                 </ul>
             </div>
