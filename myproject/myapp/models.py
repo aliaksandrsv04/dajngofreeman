@@ -1,8 +1,14 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.contrib.auth import get_user_model
 
-User = get_user_model()
+# User = get_user_model()
 
+class CustomUser(AbstractUser):
+    phone = models.CharField(max_length=12, unique=True)
+
+    def __str__(self):
+        return self.username
 class Product(models.Model):
     objects = models.Manager()
 
@@ -41,7 +47,7 @@ class Image(models.Model):
 
 class Order(models.Model):
     user = models.ForeignKey(
-        User,
+        CustomUser,
         on_delete=models.CASCADE,
         null=True,
         blank=True,

@@ -41,14 +41,12 @@ def products_view(request):
     })
 
 
-@login_required(login_url='/login/')
 def product_detail(request, pk):
     product = get_object_or_404(Product, pk=pk)
     products_images = product.images.all()
     return render(request, 'product_detail.html', {'product': product, 'products_images': products_images})
 
 
-@login_required(login_url='/login/')
 def add_to_cart(request, product_id):
     """Добавить товар в корзину (через сессию)."""
     cart = request.session.get('cart', [])
@@ -57,7 +55,6 @@ def add_to_cart(request, product_id):
     request.session['cart'] = cart
     return redirect('cart_view')
 
-@login_required(login_url='/login/')
 def remove_from_cart(request, product_id):
     """Удалить товар из корзины."""
     cart = request.session.get('cart', [])
@@ -67,7 +64,6 @@ def remove_from_cart(request, product_id):
     return redirect('cart_view')
 
 
-@login_required(login_url='/login/')
 def cart_view(request):
     """Показать корзину."""
     cart = request.session.get('cart', [])
@@ -75,7 +71,6 @@ def cart_view(request):
     total = sum(p.price for p in products)
     return render(request, 'cart.html', {'products': products, 'total': total})
 
-@login_required(login_url='/login/')
 def order_view(request):
     cart = request.session.get('cart', [])
     if cart == []:
@@ -84,17 +79,28 @@ def order_view(request):
     total = sum(p.price for p in products)
     return render(request, 'order.html', {'products': products, 'total': total}, )
 
-@login_required(login_url='/login/')
 def order_new(request):
     cart = request.session.get('cart', [])
     if cart == []:
         return redirect('products')
+    if request.user.is_authenticated:
+        with transaction.atomic():
+            order = Order()
+            order.user = request.user
+            order.telephone = request.user.phone
+            order.email = request.user.email
+            order.name = request.user.username
+            order.save()
+            messages.success(request, 'Заказ обработан успешно!')
+            for product_id in request.session.get('cart', []):
+                OrderItem.objects.create(order_id=order.id, product_id=product_id)
+            request.session['cart'] = []
+            return redirect('products')
     if request.method == 'POST':
         form = OrderForm(request.POST)
         if form.is_valid():
             with transaction.atomic():
                 order = form.save(commit=False)
-                order.user = request.user
                 order.save()
                 messages.success(request, 'Заказ обработан успешно!')
                 for product_id in request.session.get('cart',[]):
