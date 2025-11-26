@@ -158,9 +158,16 @@ REST_FRAMEWORK = {
 
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=10),
-    'REFRESH_TOKEN_LIFETIME': timedelta(minutes=10),
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=10),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=10),
     'ROTATE_REFRESH_TOKENS': False,
     'ALGORITHM': 'HS256',
 }
 
+
+CACHES = {
+    "default": {
+        "BACKEND" :"django.core.cache.backends.db.DatabaseCache",
+        "LOCATION" : "my_cache_table",
+    }
+}

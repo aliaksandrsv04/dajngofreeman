@@ -6,6 +6,7 @@ from django.core.paginator import Paginator
 from django.db import transaction
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
+from django.views.decorators.cache import cache_page
 
 from .forms import RegisterForm, ProductForm, OrderForm
 from .models import Product, Category, Image, OrderItem, Order
@@ -24,11 +25,10 @@ def register_view(request):
         form = RegisterForm()
     return render(request, 'register.html', {'form': form})
 
-
+@cache_page(30)
 def products_view(request):
     categories = Category.objects.all()
     category_id = request.GET.get('category')
-    time.sleep(10)
     products = Product.objects.prefetch_related('images').all()
     paginator = Paginator(products, 12)
     page_number = request.GET.get('page')

@@ -2,6 +2,8 @@ from http.client import HTTPResponse
 from pprint import pprint
 
 from django.shortcuts import render
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 from rest_framework import permissions, status
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.decorators import api_view
@@ -32,6 +34,7 @@ def test_api(request):
 
 
 class ProductsAPIView(APIView):
+    @method_decorator(cache_page(30))
     def get(self, request):
        products = Product.objects.all()
        serializer = ProductSerializer(products, many = True)
