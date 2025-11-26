@@ -1,3 +1,5 @@
+import time
+
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
@@ -26,6 +28,7 @@ def register_view(request):
 def products_view(request):
     categories = Category.objects.all()
     category_id = request.GET.get('category')
+    time.sleep(10)
     products = Product.objects.prefetch_related('images').all()
     paginator = Paginator(products, 12)
     page_number = request.GET.get('page')
