@@ -9,6 +9,9 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.username
+
+
+
 class Product(models.Model):
     objects = models.Manager()
 

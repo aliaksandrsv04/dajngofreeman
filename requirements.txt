@@ -4,3 +4,7 @@ mysqlclient==2.2.7
 pillow==12.0.0
 pyTelegramBotAPI==4.29.1
 Faker==37.12.0
+django-rest-framework
+django-debug-toolbar
+djangorestframework-simplejwt
+drf-yasg

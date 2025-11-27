@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'api',
     'rest_framework_simplejwt',
-    'debug_toolbar'
+    'debug_toolbar',
+    'drf_yasg'
 ]
 
 MIDDLEWARE = [
@@ -243,4 +244,15 @@ LOGGING = {
         },
     },
 
+}
+
+
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS' : {
+        'Bearer' : {
+            'type' : 'apiKey',
+            'name' : 'Authorization',
+            'in' : 'header'
+        }
+    },
 }

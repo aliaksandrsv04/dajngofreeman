@@ -1,6 +1,6 @@
 from http.client import HTTPResponse
 from pprint import pprint
-
+from drf_yasg.utils import swagger_auto_schema
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
@@ -56,9 +56,24 @@ class ProductDetailAPIView(APIView):
 
         return Response(serializer.data, status=200)
 
+
+
+
 class ProductCreateAPIView(APIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsManager, IsAuthenticated]
+
+    @swagger_auto_schema(
+        operation_summary = 'Create product',
+        request_body= ProductSerializer,
+        responses={
+            201:"Created",
+            400:'Bad Request',
+            401:'Unauthorized',
+            403:'Forbidden'
+        },
+    )
+
     def post(self, request):
         serializer = ProductSerializer(data = request.data)
         if serializer.is_valid():
