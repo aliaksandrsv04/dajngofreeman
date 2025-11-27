@@ -11,6 +11,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 import os
+from os.path import exists
 from pathlib import Path
 
 import environ
@@ -170,4 +171,76 @@ CACHES = {
         "BACKEND" :"django.core.cache.backends.db.DatabaseCache",
         "LOCATION" : "my_cache_table",
     }
+}
+
+
+CELERY_BROKER_URL = 'redis://localhost:6378/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6378/0'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = "UTC"
+
+
+
+LOG_DIR = os.path.join(BASE_DIR, "logs")
+os.makedirs(LOG_DIR, exist_ok=True)
+
+
+
+LOGGING = {
+    "version": 1,
+
+    "disable_existing_loggers": False,
+
+    "formatters": {
+        "simple" : {
+            "format":"[{levelname}] {asctime} {message}",
+            "style": "{"
+        }
+    },
+
+    "handlers": {
+        "django_file":{
+            "class":"logging.FileHandler",
+            "filename": os.path.join(LOG_DIR, "django.log"),
+            "formatter":"simple",
+        },
+
+
+        "app_file":{
+            "class":"logging.FileHandler",
+            "filename": os.path.join(LOG_DIR, "app.log"),
+            "formatter":"simple",
+        },
+
+        "console": {
+            "class": "logging.StreamHandler",
+            "formatter": "simple",
+        }
+    },
+
+    "loggers": {
+        "django": {
+            "handlers":["django_file", "console"],
+            "level":"INFO",
+            "propagate":False,
+        },
+        "django.server": {
+            "handlers":["django_file", "console"],
+            "level":"INFO",
+            "propagate":False,
+        },
+        "django.security": {
+            "handlers":["django_file", "console"],
+            "level":"INFO",
+            "propagate":False,
+        },
+        "api": {
+            "handlers":["app_file", "console"],
+            "level":"INFO",
+            "propagate":False,
+        },
+    },
+
 }

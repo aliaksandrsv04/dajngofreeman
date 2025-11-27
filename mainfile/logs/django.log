@@ -1,0 +1,21 @@
+[INFO] 2025-11-27 23:32:15,004 Watching for file changes with StatReloader
+[INFO] 2025-11-27 23:32:18,315 "GET / HTTP/1.1" 200 3916
+[INFO] 2025-11-27 23:33:06,672 "POST /logout/ HTTP/1.1" 302 0
+[INFO] 2025-11-27 23:33:06,688 "GET / HTTP/1.1" 200 3585
+[INFO] 2025-11-27 23:33:15,782 "GET /login/ HTTP/1.1" 200 1178
+[WARNING] 2025-11-27 23:33:20,636 Forbidden: /api/products/
+[WARNING] 2025-11-27 23:33:20,637 "GET /api/products/ HTTP/1.1" 403 63
+[INFO] 2025-11-27 23:35:11,263 D:\projects\dajngofreeman\mainfile\myproject\middleware\request_timer.py changed, reloading.
+[INFO] 2025-11-27 23:35:12,259 Watching for file changes with StatReloader
+[INFO] 2025-11-27 23:35:17,895 D:\projects\dajngofreeman\mainfile\myproject\middleware\request_timer.py changed, reloading.
+[INFO] 2025-11-27 23:35:18,742 Watching for file changes with StatReloader
+[INFO] 2025-11-27 23:35:20,289 D:\projects\dajngofreeman\mainfile\myproject\middleware\request_timer.py changed, reloading.
+[INFO] 2025-11-27 23:35:21,065 Watching for file changes with StatReloader
+[INFO] 2025-11-27 23:35:26,512 D:\projects\dajngofreeman\mainfile\myproject\middleware\request_timer.py changed, reloading.
+[INFO] 2025-11-27 23:35:27,339 Watching for file changes with StatReloader
+[INFO] 2025-11-27 23:35:39,532 D:\projects\dajngofreeman\mainfile\myproject\middleware\request_timer.py changed, reloading.
+[INFO] 2025-11-27 23:35:40,348 Watching for file changes with StatReloader
+[INFO] 2025-11-27 23:35:49,232 D:\projects\dajngofreeman\mainfile\myproject\middleware\request_timer.py changed, reloading.
+[INFO] 2025-11-27 23:35:50,212 Watching for file changes with StatReloader
+[INFO] 2025-11-27 23:36:10,472 "GET / HTTP/1.1" 200 3585
+[INFO] 2025-11-27 23:36:28,903 "GET / HTTP/1.1" 200 3585

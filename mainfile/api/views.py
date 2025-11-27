@@ -18,6 +18,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from unicodedata import category
 
 from .serializers import ProductSerializer, RegisterSerializer
+from .permissions import IsManager
 
 
 # Create your views here.
@@ -34,6 +35,8 @@ def test_api(request):
 
 
 class ProductsAPIView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsManager, IsAuthenticated]
     @method_decorator(cache_page(30))
     def get(self, request):
        products = Product.objects.all()
@@ -54,6 +57,8 @@ class ProductDetailAPIView(APIView):
         return Response(serializer.data, status=200)
 
 class ProductCreateAPIView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsManager, IsAuthenticated]
     def post(self, request):
         serializer = ProductSerializer(data = request.data)
         if serializer.is_valid():

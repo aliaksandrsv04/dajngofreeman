@@ -25,7 +25,6 @@ def register_view(request):
         form = RegisterForm()
     return render(request, 'register.html', {'form': form})
 
-@cache_page(30)
 def products_view(request):
     categories = Category.objects.all()
     category_id = request.GET.get('category')

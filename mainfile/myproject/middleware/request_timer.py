@@ -1,16 +1,17 @@
 import time
-
+import logging
+logger = logging.getLogger("api")
 
 class RequestTimerMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
-        print("Run server")
+        logger.info("Run server")
 
     def __call__(self, request):
-        print('Got request')
+        logger.info('Got request')
         start_time = time.time()
         response  = self.get_response(request)
-        print('Sending response')
+        logger.info('Sending response')
         delay = time.time() - start_time
-        print(f'Delay {delay}')
+        logger.info(f'Delay {delay}')
         return response

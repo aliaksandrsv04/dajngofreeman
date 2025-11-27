@@ -1,6 +1,6 @@
 from django.contrib import admin
 import csv
-from .models import Product, Category, Image, Order
+from .models import Product, Category, Image, Order, CustomUser
 
 
 # Register your models here.
@@ -22,9 +22,14 @@ def make_published(modeladmin, request, queryset):
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('name', 'price')
     list_filter = ('in_stock', 'category')
-    search_fields = ('name',)
-    actions = [make_published]
 
+    actions = [make_published]
+@admin.register(CustomUser)
+class CustomUserAdmin(admin.ModelAdmin):
+    # list_display = ('username', 'first_name', 'last_name', 'email',)
+    filter_horizontal = ('groups', 'user_permissions')
+    search_fields = ('username',)
+    exclude = ('password',)
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
