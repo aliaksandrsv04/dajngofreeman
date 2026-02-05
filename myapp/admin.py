@@ -3,13 +3,17 @@ import csv
 from .models import Product, Category, Image, Order, CustomUser
 
 
-# Register your models here.
 
+''' 
+Фича с выгрузкой информации в CSV файл 
+
+Ловим кверисет достаем ключи, испльзуем их как названия, и словарями из квери сета заполняем инфо 
+'''
 @admin.action(description="To CSV")
 def make_published(modeladmin, request, queryset):
     qs = queryset.values()
     print(qs)
-    mylist = qs[1].keys()
+    mylist = qs[0].keys()
     print(mylist)
     with open('info.csv', 'w', newline='') as csvfile:
         fieldnames = mylist
@@ -22,11 +26,12 @@ def make_published(modeladmin, request, queryset):
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('name', 'price')
     list_filter = ('in_stock', 'category')
-
+    #выгрузка для класса Продукты
     actions = [make_published]
+
+
 @admin.register(CustomUser)
 class CustomUserAdmin(admin.ModelAdmin):
-    # list_display = ('username', 'first_name', 'last_name', 'email',)
     filter_horizontal = ('groups', 'user_permissions')
     search_fields = ('username',)
     exclude = ('password',)

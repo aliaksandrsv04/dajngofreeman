@@ -1,4 +1,4 @@
-import re
+
 
 import telebot
 from django.db import transaction
@@ -6,7 +6,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 from .models import Order, OrderItem, Product
-
+#Тг бот с оправкой информации о купленном товаре при создании Заказа
 bot = telebot.TeleBot('7988808659:AAGcAN9OuQF0AspY5-HyU81wgSfHioEnlAo')
 
 def send_order_notification(instance):
@@ -18,6 +18,8 @@ def send_order_notification(instance):
     bot.send_message(1199675138, a
                      )
     return a
+
+#Сигнал получается после завершения транзакции, а не просто создания Заказа, ведь есть еще таблица со связью Заказа и Юзера
 @receiver(post_save, sender=Order)
 def order_post_save(sender, instance, created, **kwargs):
     str1 = ''

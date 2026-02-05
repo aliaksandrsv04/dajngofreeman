@@ -1,0 +1,7 @@
+Django
+django-environ
+pillow
+Faker
+django-debug-toolbar
+mysqlclient
+telebot

@@ -7,10 +7,11 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'myproject.settings')
 django.setup()
 from faker import Faker
 
-from .models import Product
+from myapp.models import Product
 
+''' Faker для отладки и дебаггинга '''
 fake = Faker()
-for i in range(20):
+for i in range(1):
     name = fake.name()
     price = fake.random_int(1,10000)
 

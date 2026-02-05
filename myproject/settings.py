@@ -27,7 +27,7 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 # SECURITY WARNING: keep the secret key used in production secret!
 
 SECRET_KEY = os.environ.get('SECRET_KEY')
-
+INTERNAL_IPS = ["127.0.0.1"]
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -43,11 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'myapp',
-    'rest_framework',
-    'api',
-    'rest_framework_simplejwt',
     'debug_toolbar',
-    'drf_yasg'
 ]
 
 MIDDLEWARE = [
@@ -144,46 +140,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/login/'
 
-from datetime import timedelta
-
-
-
-
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ),
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    )
-}
-
-
-SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(days=10),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=10),
-    'ROTATE_REFRESH_TOKENS': False,
-    'ALGORITHM': 'HS256',
-}
-
-
-CACHES = {
-    "default": {
-        "BACKEND" :"django.core.cache.backends.db.DatabaseCache",
-        "LOCATION" : "my_cache_table",
-    }
-}
-
-
-CELERY_BROKER_URL = 'redis://localhost:6378/0'
-CELERY_RESULT_BACKEND = 'redis://localhost:6378/0'
-CELERY_ACCEPT_CONTENT = ['json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = "UTC"
-
-
-
 LOG_DIR = os.path.join(BASE_DIR, "logs")
 os.makedirs(LOG_DIR, exist_ok=True)
 
@@ -245,25 +201,3 @@ LOGGING = {
     },
 
 }
-
-
-SWAGGER_SETTINGS = {
-    'SECURITY_DEFINITIONS' : {
-        'Bearer' : {
-            'type' : 'apiKey',
-            'name' : 'Authorization',
-            'in' : 'header'
-        }
-    },
-}
-
-
-CELERY_BROKER_URL = 'redis://localhost:6379/0'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
-
-CELERY_ACCEPT_CONTENT=['json']
-CELERY_TASK_SERIALIZER='json'
-CELERY_RESULT_SERIALIZER = 'json'  # Добавьте эту строку
-
-
-CELERY_TIMEZONE = 'UTC'

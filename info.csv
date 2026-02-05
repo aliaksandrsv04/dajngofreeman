@@ -1,21 +1,5 @@
 id,name,description,price,in_stock,category_id
-20,Mr. Charles Hendrix,,8248.00,True,
-19,Jeffery Donovan,,8494.00,True,
-18,Barry Salas DDS,,7234.00,True,
-17,Jacqueline Marsh,,9675.00,True,
-16,John Torres,,9394.00,True,
-15,Jamie Turner MD,,8886.00,True,
-14,Mary Anderson,,1967.00,True,
-13,Stephanie Powell,,414.00,True,
-12,Gabriel Jackson,,397.00,True,
-11,Kelly Anderson,,6293.00,True,
-10,Derek Orozco,,941.00,True,
-9,Peter Williams,,9974.00,True,
-8,Jared Rose,,6335.00,True,
-7,Cody Rodgers,,5606.00,True,
-6,Ralph Nunez,,7549.00,True,
-5,William Perry,,1566.00,True,
-4,Jessica Roberts,,6873.00,True,
-3,Nancy Cameron,,1923.00,True,
-2,Stephanie Salinas,,8972.00,True,
-1,Kathryn Harris,,8010.00,True,
+6,Pixel 9,"Google Pixel 9 — flagship Android smartphone with Google's custom Tensor G4 chip, 6.1-inch Actua OLED display with 120Hz refresh rate, and the industry's most advanced AI-powered camera system. Features real-time AI photo editing, Gemini Nano on-device, seven years of OS updates, and exclusive Google AI capabilities. Available in Obsidian, Porcelain, Hazel, and Rose colors.",1400.00,True,1
+5,MacBook Air,"MacBook Air — incredibly thin and light laptop featuring Apple's powerful M3 chip. Delivers exceptional performance, silent fanless design, and up to 18 hours of battery life. Features a brilliant 13.6-inch Liquid Retina display, advanced camera and audio system, and MagSafe charging. Perfect for productivity, creativity, and everyday use with macOS. Available in four colors.",2500.00,True,2
+4,Lenovo ThinkPad,"Lenovo ThinkPad — iconic business laptop series renowned for legendary durability with military-grade certification, best-in-class keyboards with TrackPoint, and enterprise-grade security features. Powered by Intel Core Ultra or AMD Ryzen PRO processors with optional discrete graphics. Offers comprehensive connectivity, modular design for easy upgrades, and exceptional battery life. The choice of professionals worldwide for reliability and performance.",1600.00,True,2
+2,Iphone 14,"iPhone 14 — Apple's flagship smartphone with A15 Bionic chip, 6.1-inch Super Retina XDR display, and advanced dual-camera system. Delivers exceptional performance, Night mode photos, Action mode, and Crash Detection. All-day battery life, IP68 water resistance, and Ceramic Shield front. Available in 6 colors",2000.00,True,1
