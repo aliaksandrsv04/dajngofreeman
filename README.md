@@ -20,18 +20,18 @@
 
 7. Настройте подключение к базе данных
 В файле .env (создайте его в папке myproject/) добавьте строки:
-
+`
 DB_NAME=mydb
 DB_USER=root
 DB_PASSWORD=your_password
 DB_HOST=localhost
 DB_PORT=3306
-
+`
 8. Примените миграции
-python manage.py migrate
+`python manage.py migrate`
 
 9.Запустите сервер разработки
-python manage.py runserver
+`python manage.py runserver`
 
 10 Перейдите в браузере по адресу:
-http://127.0.0.1:8000/
+`http://127.0.0.1:8000/`
