@@ -1,4 +1,5 @@
 import time
+from operator import truediv
 
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
@@ -7,10 +8,11 @@ from django.db import transaction
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.views.decorators.cache import cache_page
-
+import logging
 from .forms import RegisterForm, ProductForm, OrderForm
 from .models import Product, Category, Image, OrderItem, Order
 
+logger = logging.getLogger("api")
 
 def register_view(request):
     if request.method == 'POST':
@@ -20,6 +22,7 @@ def register_view(request):
             user.set_password(form.cleaned_data['password'])  # хэшируем пароль
             user.save()
             login(request, user)  # сразу авторизуем пользователя
+            logger.info(f"New user : {user.id}, {user.username} registered")
             return redirect('products')  # редирект на список товаров
     else:
         form = RegisterForm()
@@ -52,9 +55,16 @@ def product_detail(request, pk):
 def add_to_cart(request, product_id):
     """Добавить товар в корзину (через сессию)."""
     cart = request.session.get('cart', [])
+    flag = False
     if product_id not in cart:
         cart.append(product_id)
+        flag = True
+    print(request.session.keys())
     request.session['cart'] = cart
+    print(request.session.get('cart'))
+    if flag:
+        logger.info(f"User : {request.session.get('_auth_user_id')} added to cart {product_id}")
+    flag = False
     return redirect('cart_view')
 
 def remove_from_cart(request, product_id):
@@ -62,6 +72,7 @@ def remove_from_cart(request, product_id):
     cart = request.session.get('cart', [])
     if product_id in cart:
         cart.remove(product_id)
+        logger.info(f"User : {request.session.get('_auth_user_id')} deleted from cart {product_id}")
     request.session['cart'] = cart
     return redirect('cart_view')
 
@@ -97,6 +108,7 @@ def order_new(request):
             for product_id in request.session.get('cart', []):
                 OrderItem.objects.create(order_id=order.id, product_id=product_id)
             request.session['cart'] = []
+            logger.warning(f"User : {request.session.get('_auth_user_id')} created an order {order.id}")
             return redirect('products')
     if request.method == 'POST':
         form = OrderForm(request.POST)
@@ -108,7 +120,7 @@ def order_new(request):
                 for product_id in request.session.get('cart',[]):
                     OrderItem.objects.create(order_id=order.id, product_id =product_id)
                 request.session['cart'] =  []
-
+                logger.warning(f"User : {request.session.get('_auth_user_id')} created an order {order.id}")
                 return redirect('products')
     else:
         form = OrderForm()
